@@ -1,0 +1,82 @@
+[gd_scene load_steps=10 format=3 uid="uid://bgytt4wpy8qrf"]
+
+[ext_resource type="Script" path="res://scripts/star_destroyer.gd" id="1_pw1h2"]
+[ext_resource type="PackedScene" uid="uid://b4i87lmdutw81" path="res://objects/turret.tscn" id="2_hry4j"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="2_rxi76"]
+[ext_resource type="Material" uid="uid://i2cu8imwdxnf" path="res://shaders/green_laser.tres" id="3_q6enx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wgb78"]
+render_priority = 0
+shader = ExtResource("2_rxi76")
+shader_parameter/outline_color = Color(0.933333, 1, 0.329412, 1)
+shader_parameter/outline_width = 5.0
+
+[sub_resource type="PrismMesh" id="PrismMesh_1yjli"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t5ke1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1oayh"]
+shading_mode = 0
+albedo_color = Color(0.988235, 1, 0.290196, 1)
+disable_receive_shadows = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rbsa6"]
+material = SubResource("StandardMaterial3D_1oayh")
+
+[node name="Star Destroyer" type="Node3D"]
+script = ExtResource("1_pw1h2")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.6, -8.74228e-08, 2.68657e-17, -9.31764e-23, -4.37114e-08, -0.1, 5.24537e-08, -1, 4.37114e-09, 0, 0, -0.18045)
+material_overlay = SubResource("ShaderMaterial_wgb78")
+mesh = SubResource("PrismMesh_1yjli")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.6, 0, 0, 0, 0.085, 0, 0, 0, 1.01, 0, 0, 0)
+shape = SubResource("BoxShape3D_t5ke1")
+
+[node name="Turret" parent="." instance=ExtResource("2_hry4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.201, 0.056, 0.242)
+delay = 0.375
+material = ExtResource("3_q6enx")
+
+[node name="Turret2" parent="." instance=ExtResource("2_hry4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.201, 0.056, 0.242)
+delay = 0.375
+material = ExtResource("3_q6enx")
+
+[node name="Turret3" parent="." instance=ExtResource("2_hry4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.158044, 0.056, 0.105522)
+delay = 0.375
+material = ExtResource("3_q6enx")
+
+[node name="Turret4" parent="." instance=ExtResource("2_hry4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.158, 0.056, 0.106)
+delay = 0.375
+material = ExtResource("3_q6enx")
+
+[node name="Turret5" parent="." instance=ExtResource("2_hry4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.119192, 0.056, -0.0392292)
+delay = 0.375
+material = ExtResource("3_q6enx")
+
+[node name="Turret6" parent="." instance=ExtResource("2_hry4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.119, 0.056, -0.039)
+delay = 0.375
+material = ExtResource("3_q6enx")
+
+[node name="Highlight" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 0.01, 0, 0, 0, 1.5, 0, -0.123749, -0.1)
+visible = false
+mesh = SubResource("CylinderMesh_rbsa6")
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
+[connection signal="componentClicked" from="Turret" to="." method="_on_component_clicked"]
+[connection signal="componentClicked" from="Turret2" to="." method="_on_component_clicked"]
+[connection signal="componentClicked" from="Turret3" to="." method="_on_component_clicked"]
+[connection signal="componentClicked" from="Turret4" to="." method="_on_component_clicked"]
+[connection signal="componentClicked" from="Turret5" to="." method="_on_component_clicked"]
+[connection signal="componentClicked" from="Turret6" to="." method="_on_component_clicked"]

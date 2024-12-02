@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdcorwp0vfurv"]
+
+[ext_resource type="Script" path="res://scripts/laser.gd" id="1_svemc"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5c2u8"]
+
+[node name="Laser" type="Node3D"]
+script = ExtResource("1_svemc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.025, 0, 0, 0, -4.72083e-09, -0.025, 0, 0.108, -1.09278e-09, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_5c2u8")

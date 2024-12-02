@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0cjgvkb5busk"]
+
+[ext_resource type="PackedScene" uid="uid://bgytt4wpy8qrf" path="res://objects/star_destroyer.tscn" id="1_086hw"]
+[ext_resource type="Script" path="res://scripts/global.gd" id="1_edlq3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c58g4"]
+albedo_color = Color(0.0784314, 0.509804, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_v0qld"]
+material = SubResource("StandardMaterial3D_c58g4")
+
+[node name="Playground" type="Node3D"]
+script = ExtResource("1_edlq3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.740805, 0.671721, 0, -0.671721, 0.740805, 0, 3.76152, 4.37437)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.802391, 0.525759, 0.282394, 0, -0.473181, 0.880965, 0.596799, -0.706878, -0.379676, 0, 3.68746, -14.6074)
+
+[node name="Star Destroyer" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_086hw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.795173)
+target = NodePath("../Star Destroyer2")
+
+[node name="TestTarget" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 2.39808e-14, -3.64153e-14, -3.19744e-14, 0.2, -4.09782e-07, 3.4639e-14, 4.09782e-07, 0.2, 3.41061e-13, -1.19209e-06, 9.53674e-07)
+visible = false
+mesh = SubResource("SphereMesh_v0qld")
+
+[node name="Star Destroyer2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_086hw")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, -3)
+target = NodePath("../Star Destroyer")
+
+[connection signal="componentClicked" from="Star Destroyer" to="." method="_on_component_clicked"]
+[connection signal="shipClicked" from="Star Destroyer" to="." method="_on_ship_clicked"]
+[connection signal="componentClicked" from="Star Destroyer2" to="." method="_on_component_clicked"]
+[connection signal="shipClicked" from="Star Destroyer2" to="." method="_on_ship_clicked"]

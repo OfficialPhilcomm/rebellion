@@ -1,0 +1,68 @@
+[gd_scene load_steps=12 format=3 uid="uid://b4i87lmdutw81"]
+
+[ext_resource type="Script" path="res://scripts/turret.gd" id="1_woiui"]
+[ext_resource type="Material" uid="uid://bs4xx177eke0u" path="res://shaders/outline_material.tres" id="2_3rlfv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_b1x85"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cjymb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t31m6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ces2"]
+albedo_color = Color(0.129412, 0.129412, 0.129412, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g5w3x"]
+material = SubResource("StandardMaterial3D_6ces2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jlbme"]
+albedo_color = Color(0.396078, 0.396078, 0.396078, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qadbn"]
+material = SubResource("StandardMaterial3D_jlbme")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nkg0e"]
+albedo_color = Color(1, 0.870588, 0.141176, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mtj0u"]
+material = SubResource("StandardMaterial3D_nkg0e")
+
+[node name="Turret" type="Node3D"]
+script = ExtResource("1_woiui")
+outline_material = ExtResource("2_3rlfv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_b1x85")
+
+[node name="DebugBeam" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.82137e-17, 4.37114e-07, 0.02, 0.02, -4.37114e-07, 0, 8.74228e-10, 10, -8.74228e-10, 0, 0, -10)
+visible = false
+mesh = SubResource("CylinderMesh_cjymb")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("SphereShape3D_t31m6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.06, 0, 0, 0, 0.05, 0, 0, 0, 0.06, 0, 0, 0)
+mesh = SubResource("BoxMesh_g5w3x")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.000562311, 0.00999824, 0, -0.0299947, 0.000187437, 0.0156093, 0.00972932, -0.0473152)
+mesh = SubResource("CylinderMesh_qadbn")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.000562311, 0.00999824, 0, -0.0299947, 0.000187437, -0.016, 0.00972932, -0.0470363)
+mesh = SubResource("CylinderMesh_qadbn")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.266424)
+mesh = SubResource("SphereMesh_mtj0u")
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
+[connection signal="mouse_entered" from="Area3D" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Area3D" to="." method="_on_mouse_exited"]
